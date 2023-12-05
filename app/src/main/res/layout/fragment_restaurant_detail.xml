@@ -56,7 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/restaurant_rating" />
 
-    <!--  Make buttons stay in middle of each other  -->
+    <!--  Make buttons stay in middle of each other guidelines! -->
     <Button
         android:id="@+id/button_reviews"
         android:layout_width="wrap_content"
