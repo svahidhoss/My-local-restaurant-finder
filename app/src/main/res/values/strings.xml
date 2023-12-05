@@ -4,4 +4,6 @@
     <string name="restaurant_description">Restaurant Description</string>
     <string name="restaurant_name">Restaurant Name</string>
     <string name="restaurant_image">Restaurant Image</string>
+    <string name="mark_as_favorite_label">Mark as Favorite</string>
+    <string name="reviews_label">Reviews</string>
 </resources>

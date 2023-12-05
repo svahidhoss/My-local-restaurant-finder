@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantDetailBinding
+import java.util.UUID
 
 /**
- * A simple [Fragment] subclass.
- * Use the [RestaurantDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Represents Detail view of selected restaurant.
  */
 class RestaurantDetailFragment : Fragment() {
 
