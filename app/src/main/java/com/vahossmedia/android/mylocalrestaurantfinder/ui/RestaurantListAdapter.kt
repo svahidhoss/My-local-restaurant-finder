@@ -1,8 +1,9 @@
-package com.vahossmedia.android.mylocalrestaurantfinder
+package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.vahossmedia.android.mylocalrestaurantfinder.Restaurant
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.ListItemRestaurantBinding
 
 class RestaurantListAdapter(

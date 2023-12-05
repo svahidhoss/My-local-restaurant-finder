@@ -1,4 +1,4 @@
-package com.vahossmedia.android.mylocalrestaurantfinder
+package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantDetailBinding
-import java.util.UUID
 
 /**
  * Represents Detail view of selected restaurant.

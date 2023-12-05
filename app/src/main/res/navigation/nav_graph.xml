@@ -6,7 +6,7 @@
     app:startDestination="@id/restaurantListFragment">
     <fragment
         android:id="@+id/restaurantListFragment"
-        android:name="com.vahossmedia.android.mylocalrestaurantfinder.RestaurantListFragment"
+        android:name="com.vahossmedia.android.mylocalrestaurantfinder.ui.RestaurantListFragment"
         android:label="fragment_restaurant_list"
         tools:layout="@layout/fragment_restaurant_list">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/restaurantDetailFragment"
-        android:name="com.vahossmedia.android.mylocalrestaurantfinder.RestaurantDetailFragment"
+        android:name="com.vahossmedia.android.mylocalrestaurantfinder.ui.RestaurantDetailFragment"
         android:label="fragment_restaurant_detail"
         tools:layout="@layout/fragment_restaurant_detail" />
 </navigation>

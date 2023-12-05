@@ -1,4 +1,4 @@
-package com.vahossmedia.android.mylocalrestaurantfinder
+package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vahossmedia.android.mylocalrestaurantfinder.R
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

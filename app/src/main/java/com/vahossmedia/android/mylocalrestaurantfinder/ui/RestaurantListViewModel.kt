@@ -1,7 +1,8 @@
-package com.vahossmedia.android.mylocalrestaurantfinder
+package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vahossmedia.android.mylocalrestaurantfinder.Restaurant
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
