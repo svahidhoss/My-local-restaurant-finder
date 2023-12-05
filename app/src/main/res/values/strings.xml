@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">My Local Restaurant Finder</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="restaurant_description">Restaurant Description</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="restaurant_image">Restaurant Image</string>
 </resources>

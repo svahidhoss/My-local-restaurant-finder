@@ -19,32 +19,33 @@
             android:layout_height="100dp"
             android:src="@drawable/ic_restaurant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/restaurant_image" />
 
         <TextView
             android:id="@+id/restaurant_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Restaurant Name"
+            android:text="@string/restaurant_name"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/restaurant_image"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Restaurant Name" />
+            tools:text="@string/restaurant_name" />
 
         <TextView
             android:id="@+id/restaurant_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Restaurant Description"
+            android:text="@string/restaurant_description"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/restaurant_name"
             app:layout_constraintTop_toBottomOf="@id/restaurant_name"
-            tools:text="Restaurant Description" />
+            tools:text="@string/restaurant_description" />
 
         <RatingBar
             android:id="@+id/restaurant_rating"
