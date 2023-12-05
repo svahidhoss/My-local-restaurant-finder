@@ -6,6 +6,7 @@ plugins {
 
 ext {
     navigationVersion = "2.7.5"
+    coroutinesVersion = "1.7.3"
 }
 
 tasks.register('clean', Delete) {
