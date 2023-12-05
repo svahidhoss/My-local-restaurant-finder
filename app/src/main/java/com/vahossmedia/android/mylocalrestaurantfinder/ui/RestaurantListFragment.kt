@@ -54,7 +54,7 @@ class RestaurantListFragment : Fragment() {
                     binding.restaurantRecyclerView.adapter = RestaurantListAdapter(it)
                     {
                         findNavController().navigate(
-                            R.id.action_show_restaurant_detail
+                            RestaurantListFragmentDirections.actionShowRestaurantDetail()
                         )
                     }
                 }
