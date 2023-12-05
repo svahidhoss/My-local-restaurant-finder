@@ -19,9 +19,9 @@ class RestaurantListViewModel : ViewModel() {
         for (i in 1 until 50) {
             val restaurant = Restaurant(
                 UUID.randomUUID(),
-                "Yaas",
+                "Yaas $i",
                 "A Persian grill house",
-                4.0,
+                4.5,
                 ""
             )
             mockCrimes.add(restaurant)
