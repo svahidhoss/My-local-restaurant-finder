@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.vahossmedia.android.mylocalrestaurantfinder.Restaurant
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantDetailBinding
-import java.util.UUID
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * Represents Detail view of selected restaurant.
@@ -21,6 +26,8 @@ class RestaurantDetailFragment : Fragment() {
             "Cannot access binding because it is null. Is the view visible?"
         }
 
+    private val restaurantDetailViewModel: RestaurantDetailViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,15 +39,14 @@ class RestaurantDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val restaurant = Restaurant(
-            UUID.randomUUID(),
-            "Yaas",
-            "A Persian grill house",
-            4.0,
-            ""
-        )
 
-        updateUi(restaurant)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                restaurantDetailViewModel.restaurant.collectLatest {
+                    it?.let { it1 -> updateUi(it1) }
+                }
+            }
+        }
     }
 
     private fun updateUi(restaurant: Restaurant) {
