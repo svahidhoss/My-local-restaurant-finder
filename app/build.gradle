@@ -21,8 +21,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        // Read the API key from local.properties
-//        buildConfigField "String", "API_KEY", "\"${project.properties['API_KEY']}\""
+        // Access the API key from apikey.properties
         buildConfigField "String", "API_KEY", apiKeyProperties['API_KEY']
         buildConfigField "String", "CLIENT_ID", apiKeyProperties['CLIENT_ID']
     }

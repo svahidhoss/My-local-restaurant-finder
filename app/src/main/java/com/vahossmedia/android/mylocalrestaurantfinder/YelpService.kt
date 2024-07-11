@@ -2,6 +2,7 @@ package com.vahossmedia.android.mylocalrestaurantfinder
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.vahossmedia.android.mylocalrestaurantfinder.api.RestaurantInterceptor
 import com.vahossmedia.android.mylocalrestaurantfinder.api.YelpFusionApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -9,11 +10,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val BASE_URL = "https://api.yelp.com/"
 
-/**
- * This class handles object creation.
- * Like this, objects can be passed as parameters in the
- * constructors and then replaced for testing, where needed.
- */
 object YelpService {
 
     /**
@@ -21,6 +17,7 @@ object YelpService {
      */
     private fun provideYelpService(): YelpFusionApi {
         val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(RestaurantInterceptor())
             .build()
 
         // Kotlin reflection adapter
