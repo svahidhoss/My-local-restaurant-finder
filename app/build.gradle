@@ -5,6 +5,10 @@ plugins {
     id 'com.google.devtools.ksp'
 }
 
+def apiKeyPropertiesFile = rootProject.file("apikey.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyPropertiesFile))
+
 android {
     namespace 'com.vahossmedia.android.mylocalrestaurantfinder'
     compileSdk 34
@@ -18,7 +22,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // Read the API key from local.properties
-        buildConfigField "String", "API_KEY", "\"${project.properties['API_KEY']}\""
+//        buildConfigField "String", "API_KEY", "\"${project.properties['API_KEY']}\""
+        buildConfigField "String", "API_KEY", apiKeyProperties['API_KEY']
+        buildConfigField "String", "CLIENT_ID", apiKeyProperties['CLIENT_ID']
     }
 
     buildTypes {
@@ -35,8 +41,8 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
-        buildConfig true
+        viewBinding = true
+        buildConfig = true
     }
 }
 
