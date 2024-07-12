@@ -16,7 +16,7 @@ class RestaurantListViewModel : ViewModel() {
         get() = _restaurants.asStateFlow()
 
     init {
-        val mockCrimes = mutableListOf<Restaurant>()
+        val mockRestaurants = mutableListOf<Restaurant>()
         for (i in 1 until 50) {
             val restaurant = Restaurant(
                 UUID.randomUUID(),
@@ -25,11 +25,11 @@ class RestaurantListViewModel : ViewModel() {
                 4.5,
                 ""
             )
-            mockCrimes.add(restaurant)
+            mockRestaurants.add(restaurant)
         }
 
         viewModelScope.launch {
-            updateRestaurants(mockCrimes)
+            updateRestaurants(mockRestaurants)
         }
     }
 

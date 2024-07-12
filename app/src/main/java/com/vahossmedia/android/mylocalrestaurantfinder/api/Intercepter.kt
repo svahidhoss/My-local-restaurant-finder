@@ -12,12 +12,16 @@ class RestaurantInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest: Request = chain.request()
 
+        // TODO fix the location hard code
         val newUrl: HttpUrl = originalRequest.url.newBuilder()
-            .addQueryParameter("format", "json")
+            .addQueryParameter("limit", "20")
+//            .addQueryParameter("format", "json")
+            .addQueryParameter("location", "North Vancouver")
             .build()
 
         val newRequest: Request = originalRequest.newBuilder()
             .header("Authorization", "Bearer $API_KEY")
+            .addHeader("accept", "application/json")
             .url(newUrl)
             .build()
 
