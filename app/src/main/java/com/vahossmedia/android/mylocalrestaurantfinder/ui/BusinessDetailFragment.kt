@@ -10,16 +10,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.vahossmedia.android.mylocalrestaurantfinder.Restaurant
-import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantDetailBinding
+import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentBusinessDetailBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
  * Represents Detail view of selected restaurant.
  */
-class RestaurantDetailFragment : Fragment() {
+class BusinessDetailFragment : Fragment() {
 
-    private var _binding: FragmentRestaurantDetailBinding? = null
+    private var _binding: FragmentBusinessDetailBinding? = null
 
     private val binding
         get() = checkNotNull(_binding) {
@@ -33,7 +33,7 @@ class RestaurantDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment using binding
-        _binding = FragmentRestaurantDetailBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentBusinessDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -51,8 +51,8 @@ class RestaurantDetailFragment : Fragment() {
 
     private fun updateUi(restaurant: Restaurant) {
         binding.apply {
-            binding.restaurantName.text = restaurant.name
-            binding.restaurantRating.rating = restaurant.rating.toFloat()
+            binding.businessName.text = restaurant.name
+            binding.businessRating.rating = restaurant.rating.toFloat()
         }
     }
 

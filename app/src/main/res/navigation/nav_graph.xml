@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/restaurantDetailFragment"
-        android:name="com.vahossmedia.android.mylocalrestaurantfinder.ui.RestaurantDetailFragment"
+        android:name="com.vahossmedia.android.mylocalrestaurantfinder.ui.BusinessDetailFragment"
         android:label="fragment_restaurant_detail"
-        tools:layout="@layout/fragment_restaurant_detail" />
+        tools:layout="@layout/fragment_business_detail" />
 </navigation>

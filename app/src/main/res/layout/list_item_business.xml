@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/restaurant_name"
+            android:id="@+id/business_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -43,18 +43,18 @@
             android:text="@string/restaurant_description"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/restaurant_name"
-            app:layout_constraintTop_toBottomOf="@id/restaurant_name"
+            app:layout_constraintStart_toStartOf="@id/business_name"
+            app:layout_constraintTop_toBottomOf="@id/business_name"
             tools:text="@string/restaurant_description" />
 
         <RatingBar
-            android:id="@+id/restaurant_rating"
+            android:id="@+id/business_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:numStars="5"
             android:rating="3.5"
-            app:layout_constraintStart_toStartOf="@id/restaurant_name"
+            app:layout_constraintStart_toStartOf="@id/business_name"
             app:layout_constraintTop_toBottomOf="@id/restaurant_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.RestaurantDetailFragment">
+    tools:context=".ui.BusinessDetailFragment">
 
     <ImageView
         android:id="@+id/restaurant_image"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/restaurant_name"
+        android:id="@+id/business_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -35,10 +35,10 @@
         android:text="@string/restaurant_description"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/restaurant_name" />
+        app:layout_constraintTop_toBottomOf="@id/business_name" />
 
     <RatingBar
-        android:id="@+id/restaurant_rating"
+        android:id="@+id/business_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -54,7 +54,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/mark_as_favorite_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/restaurant_rating" />
+        app:layout_constraintTop_toBottomOf="@id/business_rating" />
 
     <!--  Make buttons stay in middle of each other guidelines! -->
     <Button
