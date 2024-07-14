@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val BASE_URL = "https://api.yelp.com/"
+private const val BASE_URL = "https://api.yelp.com/v3/"
 
 object YelpService {
 

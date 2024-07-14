@@ -25,14 +25,14 @@ class RestaurantListViewModel : ViewModel() {
     val uiState: StateFlow<RestaurantUiState> = _uiState.asStateFlow()
 
     init {
-        fetchMockRestaurants()
+        fetchRestaurants()
     }
 
     fun fetchRestaurants() {
         viewModelScope.launch {
             _uiState.value = RestaurantUiState.Loading
             try {
-                val response = repository.fetchRestaurants()
+                val response = repository.fetchBusinesses()
                 _uiState.value = RestaurantUiState.Success(response.businesses)
             } catch (e: Exception) {
                 _uiState.value = RestaurantUiState.Error(e.message ?: "An unknown error occurred")

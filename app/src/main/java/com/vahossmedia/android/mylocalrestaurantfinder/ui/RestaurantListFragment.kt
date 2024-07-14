@@ -95,7 +95,6 @@ class RestaurantListFragment : Fragment() {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
