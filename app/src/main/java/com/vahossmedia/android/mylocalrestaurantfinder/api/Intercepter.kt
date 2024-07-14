@@ -12,10 +12,9 @@ class RestaurantInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest: Request = chain.request()
 
-        // TODO fix the location hard code
         val newUrl: HttpUrl = originalRequest.url.newBuilder()
             .addQueryParameter("limit", "20")
-//            .addQueryParameter("format", "json")
+            // TODO fix the location hard code
             .addQueryParameter("location", "North Vancouver")
             .build()
 
