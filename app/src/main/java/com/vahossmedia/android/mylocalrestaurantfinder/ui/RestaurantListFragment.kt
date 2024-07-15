@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -65,19 +65,35 @@ class RestaurantListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 restaurantListViewModel.uiState.collect { state ->
-                    when (state) {
-                        is RestaurantUiState.Loading -> showLoading()
-                        is RestaurantUiState.Success -> showRestaurants(state.restaurants)
-                        is RestaurantUiState.Error -> showError(state.message)
-                    }
+                    updateUi(state)
                 }
             }
         }
     }
 
-    private fun showLoading() {
-        // TODO Show loading UI
-        Toast.makeText(context, "loading", Toast.LENGTH_SHORT).show()
+    private fun updateUi(state: RestaurantUiState) {
+        when (state) {
+            is RestaurantUiState.Loading -> {
+                binding.loadingProgressBar.isVisible = true
+                binding.restaurantRecyclerView.isVisible = false
+                binding.errorTextView.isVisible = false
+            }
+
+            is RestaurantUiState.Success -> {
+                binding.loadingProgressBar.isVisible = false
+                binding.restaurantRecyclerView.isVisible = true
+                binding.errorTextView.isVisible = false
+                // Update your RecyclerView with the data
+                showRestaurants(state.restaurants)
+            }
+
+            is RestaurantUiState.Error -> {
+                binding.loadingProgressBar.isVisible = false
+                binding.restaurantRecyclerView.isVisible = false
+                binding.errorTextView.isVisible = true
+                binding.errorTextView.text = state.message
+            }
+        }
     }
 
     private fun showRestaurants(restaurants: List<Business>) {
@@ -88,11 +104,6 @@ class RestaurantListFragment : Fragment() {
                 RestaurantListFragmentDirections.actionShowRestaurantDetail()
             )
         }
-    }
-
-    private fun showError(message: String) {
-        // TODO Show error message
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

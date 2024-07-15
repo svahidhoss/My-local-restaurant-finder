@@ -2,7 +2,7 @@ package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vahossmedia.android.mylocalrestaurantfinder.Repository
+import com.vahossmedia.android.mylocalrestaurantfinder.YelpRepository
 import com.vahossmedia.android.mylocalrestaurantfinder.YelpService
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Category
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class RestaurantListViewModel : ViewModel() {
-    private val repository = Repository(YelpService.getYelpService())
+    private val yelpRepository = YelpRepository(YelpService.getYelpService())
 
     private val _businessList = MutableStateFlow<List<Business>>(emptyList())
 
@@ -32,7 +32,7 @@ class RestaurantListViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = RestaurantUiState.Loading
             try {
-                val response = repository.fetchBusinesses()
+                val response = yelpRepository.fetchBusinesses()
                 _uiState.value = RestaurantUiState.Success(response.businesses)
             } catch (e: Exception) {
                 _uiState.value = RestaurantUiState.Error(e.message ?: "An unknown error occurred")

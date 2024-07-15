@@ -6,4 +6,5 @@
     <string name="restaurant_image">Restaurant Image</string>
     <string name="mark_as_favorite_label">Mark as Favorite</string>
     <string name="reviews_label">Reviews</string>
+    <string name="error_message">There is an error!</string>
 </resources>
