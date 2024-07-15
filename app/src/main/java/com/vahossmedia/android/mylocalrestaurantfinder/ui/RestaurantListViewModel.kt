@@ -17,9 +17,7 @@ class RestaurantListViewModel : ViewModel() {
     private val yelpRepository = YelpRepository(YelpService.getYelpService())
 
     private val _businessList = MutableStateFlow<List<Business>>(emptyList())
-
-    val restaurants
-        get() = _businessList.asStateFlow()
+    val businessList = _businessList.asStateFlow()
 
     private val _uiState = MutableStateFlow<RestaurantUiState>(RestaurantUiState.Loading)
     val uiState: StateFlow<RestaurantUiState> = _uiState.asStateFlow()

@@ -51,7 +51,7 @@ class RestaurantListFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                restaurantListViewModel.restaurants.collectLatest {
+                restaurantListViewModel.businessList.collectLatest {
                     binding.restaurantRecyclerView.adapter = BusinessListAdapter(it)
                     {
                         findNavController().navigate(
