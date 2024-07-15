@@ -3,6 +3,7 @@ package com.vahossmedia.android.mylocalrestaurantfinder.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.ListItemBusinessBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 
@@ -22,7 +23,6 @@ class BusinessListAdapter(
         val business = businesses[position]
         holder.bind(business, onBusinessClicked)
     }
-
 }
 
 class BusinessHolder(private val binding: ListItemBusinessBinding) :
@@ -31,7 +31,8 @@ class BusinessHolder(private val binding: ListItemBusinessBinding) :
     fun bind(business: Business, onBusinessClicked: () -> Unit) {
         binding.businessName.text = business.name
         binding.businessRating.rating = business.rating.toFloat()
-        // tODO set image using glide
+        // load image using coil
+        binding.restaurantImage.load(business.imageUrl)
 
         binding.root.setOnClickListener {
             onBusinessClicked()
