@@ -33,7 +33,7 @@ class BusinessHolder(private val binding: ListItemBusinessBinding) :
         binding.businessDescription.text = business.location?.address1
         binding.businessRating.rating = business.rating.toFloat()
         // load image using coil
-        binding.restaurantImage.load(business.imageUrl)
+        binding.businessImage.load(business.imageUrl)
 
         binding.root.setOnClickListener {
             onBusinessClicked(business)

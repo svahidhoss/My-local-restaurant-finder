@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentBusinessDetailBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import kotlinx.coroutines.flow.collectLatest
@@ -58,6 +59,8 @@ class BusinessDetailFragment : Fragment() {
         binding.apply {
             binding.businessName.text = business.name
             binding.businessRating.rating = business.rating.toFloat()
+            binding.businessDescription.text = business.location?.address1
+            binding.businessImage.load(business.imageUrl)
         }
     }
 

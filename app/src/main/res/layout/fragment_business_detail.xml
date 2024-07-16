@@ -8,7 +8,7 @@
     tools:context=".ui.BusinessDetailFragment">
 
     <ImageView
-        android:id="@+id/restaurant_image"
+        android:id="@+id/business_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:contentDescription="@string/restaurant_description"
@@ -25,7 +25,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/restaurant_image" />
+        app:layout_constraintTop_toBottomOf="@id/business_image" />
 
     <TextView
         android:id="@+id/business_description"
