@@ -35,7 +35,7 @@ const val LOCATION_PERMISSION_REQUEST_CODE = 1001
  * A simple [Fragment] subclass that displays
  * the list of restaurants.
  */
-class RestaurantListFragment : Fragment() {
+class BusinessListFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -47,7 +47,7 @@ class RestaurantListFragment : Fragment() {
             "Cannot access binding because it is null. Is the view visible?"
         }
 
-    private val restaurantListViewModel: RestaurantListViewModel by viewModels()
+    private val businessListViewModel: BusinessListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,11 +69,11 @@ class RestaurantListFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                restaurantListViewModel.businessList.collectLatest {
+                businessListViewModel.businessList.collectLatest {
                     binding.restaurantRecyclerView.adapter = BusinessListAdapter(it)
                     {
                         findNavController().navigate(
-                            RestaurantListFragmentDirections.actionShowRestaurantDetail()
+                            BusinessListFragmentDirections.actionShowRestaurantDetail()
                         )
                     }
                 }
@@ -82,7 +82,7 @@ class RestaurantListFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                restaurantListViewModel.uiState.collect { state ->
+                businessListViewModel.uiState.collect { state ->
                     updateUi(state)
                 }
             }
@@ -93,7 +93,7 @@ class RestaurantListFragment : Fragment() {
             else {
                 showLocationDisabledDialog()
                 // Use a default location
-                restaurantListViewModel.fetchRestaurants()
+                businessListViewModel.fetchRestaurants()
             }
         } else requestLocationPermission()
     }
@@ -128,7 +128,7 @@ class RestaurantListFragment : Fragment() {
         binding.restaurantRecyclerView.adapter = BusinessListAdapter(restaurants)
         {
             findNavController().navigate(
-                RestaurantListFragmentDirections.actionShowRestaurantDetail()
+                BusinessListFragmentDirections.actionShowRestaurantDetail()
             )
         }
     }
@@ -161,7 +161,7 @@ class RestaurantListFragment : Fragment() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 location?.let {
                     Log.d(TAG, "Location received with ${it.latitude} and ${it.longitude}")
-                    restaurantListViewModel.setLocation(it.latitude, it.longitude)
+                    businessListViewModel.setLocation(it.latitude, it.longitude)
                 }
             }
         }

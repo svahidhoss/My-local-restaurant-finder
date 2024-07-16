@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RestaurantListViewModel : ViewModel() {
+class BusinessListViewModel : ViewModel() {
     private val yelpRepository = YelpRepository(YelpService.getYelpService())
 
     private val _businessList = MutableStateFlow<List<Business>>(emptyList())
