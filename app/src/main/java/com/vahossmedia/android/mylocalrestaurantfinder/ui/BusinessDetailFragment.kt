@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentBusinessDetailBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +27,11 @@ class BusinessDetailFragment : Fragment() {
             "Cannot access binding because it is null. Is the view visible?"
         }
 
-    private val businessDetailViewModel: BusinessDetailViewModel by viewModels()
+    private val args: BusinessDetailFragmentArgs by navArgs()
+
+    private val businessDetailViewModel: BusinessDetailViewModel by viewModels() {
+        BusinessDetailViewModelFactory(args.business)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

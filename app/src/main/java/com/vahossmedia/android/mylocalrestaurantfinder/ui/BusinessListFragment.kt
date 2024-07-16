@@ -69,11 +69,10 @@ class BusinessListFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                businessListViewModel.businessList.collectLatest {
-                    binding.restaurantRecyclerView.adapter = BusinessListAdapter(it)
-                    {
+                businessListViewModel.businessList.collectLatest { businessList ->
+                    binding.restaurantRecyclerView.adapter = BusinessListAdapter(businessList) {
                         findNavController().navigate(
-                            BusinessListFragmentDirections.actionShowRestaurantDetail()
+                            BusinessListFragmentDirections.actionShowRestaurantDetail(it)
                         )
                     }
                 }
@@ -125,10 +124,9 @@ class BusinessListFragment : Fragment() {
 
     private fun showRestaurants(restaurants: List<Business>) {
         // Update UI with restaurants
-        binding.restaurantRecyclerView.adapter = BusinessListAdapter(restaurants)
-        {
+        binding.restaurantRecyclerView.adapter = BusinessListAdapter(restaurants) {
             findNavController().navigate(
-                BusinessListFragmentDirections.actionShowRestaurantDetail()
+                BusinessListFragmentDirections.actionShowRestaurantDetail(it)
             )
         }
     }

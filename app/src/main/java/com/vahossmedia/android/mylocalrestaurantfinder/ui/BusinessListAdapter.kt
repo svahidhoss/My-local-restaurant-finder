@@ -9,7 +9,7 @@ import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 
 class BusinessListAdapter(
     private val businesses: List<Business>,
-    private val onBusinessClicked: () -> Unit
+    private val onBusinessClicked: (business: Business) -> Unit
 ) : RecyclerView.Adapter<BusinessHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,7 +28,7 @@ class BusinessListAdapter(
 class BusinessHolder(private val binding: ListItemBusinessBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(business: Business, onBusinessClicked: () -> Unit) {
+    fun bind(business: Business, onBusinessClicked: (business: Business) -> Unit) {
         binding.businessName.text = business.name
         binding.businessDescription.text = business.location?.address1
         binding.businessRating.rating = business.rating.toFloat()
@@ -36,7 +36,7 @@ class BusinessHolder(private val binding: ListItemBusinessBinding) :
         binding.restaurantImage.load(business.imageUrl)
 
         binding.root.setOnClickListener {
-            onBusinessClicked()
+            onBusinessClicked(business)
         }
     }
 }
