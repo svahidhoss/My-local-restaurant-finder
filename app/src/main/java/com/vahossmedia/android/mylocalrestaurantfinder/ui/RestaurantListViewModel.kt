@@ -22,15 +22,15 @@ class RestaurantListViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<RestaurantUiState>(RestaurantUiState.Loading)
     val uiState: StateFlow<RestaurantUiState> = _uiState.asStateFlow()
 
-    init {
-        fetchRestaurants()
-    }
+    private val _location = MutableStateFlow<Pair<Double, Double>?>(null)
+    val location: StateFlow<Pair<Double, Double>?> = _location.asStateFlow()
 
-    fun fetchRestaurants() {
+    fun fetchRestaurants(pair: Pair<Double, Double>? = null) {
         viewModelScope.launch {
             _uiState.value = RestaurantUiState.Loading
             try {
-                val response = yelpRepository.fetchBusinesses()
+                val response = if (pair == null) yelpRepository.fetchBusinesses()
+                else yelpRepository.fetchBusinesses(pair.first, pair.second)
                 _uiState.value = RestaurantUiState.Success(response.businesses)
             } catch (e: Exception) {
                 _uiState.value = RestaurantUiState.Error(e.message ?: "An unknown error occurred")
@@ -38,7 +38,8 @@ class RestaurantListViewModel : ViewModel() {
         }
     }
 
-    fun fetchMockRestaurants() {
+    // TODO move to testing
+    private fun fetchMockRestaurants() {
         val mockBusinessList = mutableListOf<Business>()
         for (i in 1 until 50) {
             val business = Business(
@@ -76,6 +77,13 @@ class RestaurantListViewModel : ViewModel() {
 
     private suspend fun updateBusinesses(newItems: List<Business>) {
         _businessList.emit(newItems)
+    }
+
+    fun setLocation(latitude: Double, longitude: Double) {
+        _location.value = Pair(latitude, longitude)
+        viewModelScope.launch {
+            fetchRestaurants(_location.value)
+        }
     }
 }
 

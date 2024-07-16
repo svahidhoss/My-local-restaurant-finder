@@ -1,10 +1,19 @@
 package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,16 +21,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantListBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+const val TAG = "RestaurantListFragment"
+const val LOCATION_PERMISSION_REQUEST_CODE = 1001
 
 /**
  * A simple [Fragment] subclass that displays
  * the list of restaurants.
  */
 class RestaurantListFragment : Fragment() {
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var _binding: FragmentRestaurantListBinding? = null
 
@@ -42,6 +58,8 @@ class RestaurantListFragment : Fragment() {
 
         // Setup layout manager
         binding.restaurantRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         return binding.root
     }
@@ -69,6 +87,15 @@ class RestaurantListFragment : Fragment() {
                 }
             }
         }
+
+        if (checkLocationPermission()) {
+            if (isLocationEnabled()) getLastLocation()
+            else {
+                showLocationDisabledDialog()
+                // Use a default location
+                restaurantListViewModel.fetchRestaurants()
+            }
+        } else requestLocationPermission()
     }
 
     private fun updateUi(state: RestaurantUiState) {
@@ -109,5 +136,56 @@ class RestaurantListFragment : Fragment() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    private fun checkLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    private fun getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                location?.let {
+                    Log.d(TAG, "Location received with ${it.latitude} and ${it.longitude}")
+                    restaurantListViewModel.setLocation(it.latitude, it.longitude)
+                } ?: run {
+                    // If location is null, use the default location
+                    restaurantListViewModel.fetchRestaurants()
+                }
+            }
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun showLocationDisabledDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Location Services Disabled")
+            .setMessage("Please enable location services to use this feature.")
+            .setPositiveButton("Settings") { _, _ ->
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 }
