@@ -162,9 +162,6 @@ class RestaurantListFragment : Fragment() {
                 location?.let {
                     Log.d(TAG, "Location received with ${it.latitude} and ${it.longitude}")
                     restaurantListViewModel.setLocation(it.latitude, it.longitude)
-                } ?: run {
-                    // If location is null, use the default location
-                    restaurantListViewModel.fetchRestaurants()
                 }
             }
         }

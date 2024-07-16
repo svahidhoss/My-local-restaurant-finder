@@ -29,7 +29,7 @@ class RestaurantListViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = RestaurantUiState.Loading
             try {
-                val response = if (pair == null) yelpRepository.fetchBusinesses()
+                val response = if (pair == null) yelpRepository.fetchBusinesses(location = "Vancouver")
                 else yelpRepository.fetchBusinesses(pair.first, pair.second)
                 _uiState.value = RestaurantUiState.Success(response.businesses)
             } catch (e: Exception) {

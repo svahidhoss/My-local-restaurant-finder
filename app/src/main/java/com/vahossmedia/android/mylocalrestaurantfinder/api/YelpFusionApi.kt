@@ -7,6 +7,7 @@ interface YelpFusionApi {
     @GET("businesses/search")
     suspend fun fetchBusinesses(
         @Query("latitude") latitude: Double? = null,
-        @Query("longitude") longitude: Double? = null
+        @Query("longitude") longitude: Double? = null,
+        @Query("location") location: String? = null
     ): BusinessResponse
 }

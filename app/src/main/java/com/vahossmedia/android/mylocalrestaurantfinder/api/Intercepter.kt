@@ -15,8 +15,6 @@ class RestaurantInterceptor : Interceptor {
         val newUrl: HttpUrl = originalRequest.url.newBuilder()
             .addQueryParameter("sort_by", "best_match")
             .addQueryParameter("limit", "20")
-            // TODO fix the location hard code
-            .addQueryParameter("location", "North Vancouver")
             .build()
 
         val newRequest: Request = originalRequest.newBuilder()
