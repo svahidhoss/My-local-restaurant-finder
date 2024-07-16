@@ -2,7 +2,7 @@ package com.vahossmedia.android.mylocalrestaurantfinder.model
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Location(
@@ -15,4 +15,3 @@ data class Location(
     val state: String,
     @Json(name = "display_address") val displayAddress: List<String> = emptyList()
 ) : Parcelable
-
