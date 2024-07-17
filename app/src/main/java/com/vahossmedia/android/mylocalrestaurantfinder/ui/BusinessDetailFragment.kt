@@ -1,16 +1,20 @@
 package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.vahossmedia.android.mylocalrestaurantfinder.R
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentBusinessDetailBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import kotlinx.coroutines.flow.collectLatest
@@ -52,6 +56,23 @@ class BusinessDetailFragment : Fragment() {
                     it?.let { it1 -> updateUi(it1) }
                 }
             }
+        }
+
+        binding.businessImage.setOnClickListener { openBusinessUrl() }
+        binding.businessName.setOnClickListener { openBusinessUrl() }
+    }
+
+    private fun openBusinessUrl() {
+        businessDetailViewModel.business.value?.url?.let {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+            startActivity(intent)
+        } ?: run {
+            // Handle case where URL is null
+            Toast.makeText(
+                context,
+                getString(R.string.error_business_url_not_available),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

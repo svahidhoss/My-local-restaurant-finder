@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class BusinessDetailViewModel(business: Business) : ViewModel() {
     private val _business = MutableStateFlow<Business?>(null)
+    val business = _business.asStateFlow()
 
     val restaurant
         get() = _business.asStateFlow()
