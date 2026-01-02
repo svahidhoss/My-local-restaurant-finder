@@ -16,21 +16,25 @@ object YelpService {
      * Creates an instance of [YelpFusionApi].
      */
     private fun provideYelpService(): YelpFusionApi {
+        // 1. Create OkHttpClient with custom interceptor
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(RestaurantInterceptor())
             .build()
 
+        // 2. Create Moshi for JSON parsing
         // Kotlin reflection adapter
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
+        // 3. Build Retrofit with base URL, Moshi converter, and OkHttp client
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
 
+        // 4. Create the API interface implementation
         return retrofit.create(YelpFusionApi::class.java)
     }
 
