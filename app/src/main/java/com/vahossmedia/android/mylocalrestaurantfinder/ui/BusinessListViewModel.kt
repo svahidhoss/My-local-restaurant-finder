@@ -3,21 +3,18 @@ package com.vahossmedia.android.mylocalrestaurantfinder.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vahossmedia.android.mylocalrestaurantfinder.YelpRepository
-import com.vahossmedia.android.mylocalrestaurantfinder.YelpService
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
-import com.vahossmedia.android.mylocalrestaurantfinder.model.Category
-import com.vahossmedia.android.mylocalrestaurantfinder.model.Coordinates
-import com.vahossmedia.android.mylocalrestaurantfinder.model.Location
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BusinessListViewModel : ViewModel() {
-    private val yelpRepository = YelpRepository(YelpService.getYelpService())
-
-    private val _businessList = MutableStateFlow<List<Business>>(emptyList())
-    val businessList = _businessList.asStateFlow()
+@HiltViewModel
+class BusinessListViewModel @Inject constructor(
+    private val yelpRepository: YelpRepository
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<RestaurantUiState>(RestaurantUiState.Loading)
     val uiState: StateFlow<RestaurantUiState> = _uiState.asStateFlow()
@@ -29,8 +26,9 @@ class BusinessListViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = RestaurantUiState.Loading
             try {
-                val response = if (pair == null) yelpRepository.fetchBusinesses(location = "Vancouver")
-                else yelpRepository.fetchBusinesses(pair.first, pair.second)
+                val response =
+                    if (pair == null) yelpRepository.fetchBusinesses(location = "Vancouver")
+                    else yelpRepository.fetchBusinesses(pair.first, pair.second)
                 _uiState.value = RestaurantUiState.Success(response.businesses)
             } catch (e: Exception) {
                 _uiState.value = RestaurantUiState.Error(e.message ?: "An unknown error occurred")
@@ -39,7 +37,7 @@ class BusinessListViewModel : ViewModel() {
     }
 
     // TODO move to testing
-    private fun fetchMockRestaurants() {
+    /*private fun fetchMockRestaurants() {
         val mockBusinessList = mutableListOf<Business>()
         for (i in 1 until 50) {
             val business = Business(
@@ -77,7 +75,7 @@ class BusinessListViewModel : ViewModel() {
 
     private suspend fun updateBusinesses(newItems: List<Business>) {
         _businessList.emit(newItems)
-    }
+    }*/
 
     fun setLocation(latitude: Double, longitude: Double) {
         _location.value = Pair(latitude, longitude)

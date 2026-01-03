@@ -12,17 +12,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
 import coil.load
 import com.vahossmedia.android.mylocalrestaurantfinder.R
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentBusinessDetailBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
  * Represents Detail view of selected restaurant.
  */
+@AndroidEntryPoint
 class BusinessDetailFragment : Fragment() {
 
     private var _binding: FragmentBusinessDetailBinding? = null
@@ -32,11 +33,7 @@ class BusinessDetailFragment : Fragment() {
             "Cannot access binding because it is null. Is the view visible?"
         }
 
-    private val args: BusinessDetailFragmentArgs by navArgs()
-
-    private val businessDetailViewModel: BusinessDetailViewModel by viewModels() {
-        BusinessDetailViewModelFactory(args.business)
-    }
+    private val businessDetailViewModel: BusinessDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +49,8 @@ class BusinessDetailFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                businessDetailViewModel.restaurant.collectLatest {
-                    it?.let { it1 -> updateUi(it1) }
+                businessDetailViewModel.businessState.collectLatest {
+                    updateUi(it)
                 }
             }
         }
@@ -63,7 +60,7 @@ class BusinessDetailFragment : Fragment() {
     }
 
     private fun openBusinessUrl() {
-        businessDetailViewModel.business.value?.url?.let {
+        businessDetailViewModel.businessState.value.url?.let {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
             startActivity(intent)
         } ?: run {

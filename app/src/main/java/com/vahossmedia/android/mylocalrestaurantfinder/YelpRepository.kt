@@ -1,8 +1,11 @@
 package com.vahossmedia.android.mylocalrestaurantfinder
 
 import com.vahossmedia.android.mylocalrestaurantfinder.api.YelpFusionApi
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class YelpRepository(private val yelpFusionApi: YelpFusionApi) {
+@Singleton
+class YelpRepository @Inject constructor(private val yelpFusionApi: YelpFusionApi) {
     suspend fun fetchBusinesses(
         latitude: Double? = null,
         longitude: Double? = null,

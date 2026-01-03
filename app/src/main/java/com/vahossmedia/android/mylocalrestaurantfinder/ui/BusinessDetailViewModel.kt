@@ -1,29 +1,18 @@
 package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BusinessDetailViewModel(business: Business) : ViewModel() {
-    private val _business = MutableStateFlow<Business?>(null)
-    val business = _business.asStateFlow()
+class BusinessDetailViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    private val business: Business = savedStateHandle.get<Business>("business")
+        ?: throw IllegalArgumentException("Business argument is required")
 
-    val restaurant
-        get() = _business.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            _business.emit(business)
-        }
-    }
-}
-
-class BusinessDetailViewModelFactory(private val business: Business) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return BusinessDetailViewModel(business) as T
-    }
+    private val _businessState = MutableStateFlow(business)
+    val businessState = _businessState.asStateFlow()
 }

@@ -25,7 +25,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.vahossmedia.android.mylocalrestaurantfinder.databinding.FragmentRestaurantListBinding
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
-import kotlinx.coroutines.flow.collectLatest
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 const val TAG = "RestaurantListFragment"
@@ -35,6 +35,7 @@ const val LOCATION_PERMISSION_REQUEST_CODE = 1001
  * A simple [Fragment] subclass that displays
  * the list of restaurants.
  */
+@AndroidEntryPoint
 class BusinessListFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -69,24 +70,13 @@ class BusinessListFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                businessListViewModel.businessList.collectLatest { businessList ->
-                    binding.restaurantRecyclerView.adapter = BusinessListAdapter(businessList) {
-                        findNavController().navigate(
-                            BusinessListFragmentDirections.actionShowRestaurantDetail(it)
-                        )
-                    }
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 businessListViewModel.uiState.collect { state ->
                     updateUi(state)
                 }
             }
         }
 
+        // Location permission flow
         if (checkLocationPermission()) {
             if (isLocationEnabled()) getLastLocation()
             else {
