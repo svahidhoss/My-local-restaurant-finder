@@ -110,3 +110,6 @@ DerivedData
 *.xcscmblueprint
 .build
 /app/google-services.json
+
+# Claude Code
+.claude/
