@@ -1,7 +1,6 @@
-package com.vahossmedia.android.mylocalrestaurantfinder
+package com.vahossmedia.android.mylocalrestaurantfinder.repository
 
 import com.vahossmedia.android.mylocalrestaurantfinder.api.YelpFusionApi
-import repository.RestaurantRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 

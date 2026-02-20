@@ -1,4 +1,4 @@
-package repository
+package com.vahossmedia.android.mylocalrestaurantfinder.repository
 
 import com.vahossmedia.android.mylocalrestaurantfinder.api.BusinessResponse
 

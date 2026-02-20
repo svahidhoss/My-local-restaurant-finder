@@ -2,7 +2,7 @@ package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vahossmedia.android.mylocalrestaurantfinder.YelpRepository
+import com.vahossmedia.android.mylocalrestaurantfinder.repository.YelpRepository
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
