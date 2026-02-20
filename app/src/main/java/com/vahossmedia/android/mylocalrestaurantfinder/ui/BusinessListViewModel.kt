@@ -2,7 +2,7 @@ package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vahossmedia.android.mylocalrestaurantfinder.repository.YelpRepository
+import com.vahossmedia.android.mylocalrestaurantfinder.repository.RestaurantRepository
 import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusinessListViewModel @Inject constructor(
-    private val yelpRepository: YelpRepository
+    private val restaurantRepository: RestaurantRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<RestaurantUiState>(RestaurantUiState.Loading)
@@ -27,8 +27,8 @@ class BusinessListViewModel @Inject constructor(
             _uiState.value = RestaurantUiState.Loading
             try {
                 val response =
-                    if (pair == null) yelpRepository.fetchBusinesses(location = "Vancouver")
-                    else yelpRepository.fetchBusinesses(pair.first, pair.second)
+                    if (pair == null) restaurantRepository.fetchBusinesses(location = "Vancouver")
+                    else restaurantRepository.fetchBusinesses(pair.first, pair.second)
                 _uiState.value = RestaurantUiState.Success(response.businesses)
             } catch (e: Exception) {
                 _uiState.value = RestaurantUiState.Error(e.message ?: "An unknown error occurred")
