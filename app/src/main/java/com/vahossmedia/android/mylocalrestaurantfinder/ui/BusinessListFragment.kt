@@ -123,9 +123,9 @@ class BusinessListFragment : Fragment() {
         businessListAdapter.submitList(restaurants)
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
-        super.onDestroy()
     }
 
     private fun checkLocationPermission(): Boolean {
