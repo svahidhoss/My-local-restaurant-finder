@@ -50,6 +50,12 @@ class BusinessListFragment : Fragment() {
 
     private val businessListViewModel: BusinessListViewModel by viewModels()
 
+    private val businessListAdapter = BusinessListAdapter { business ->
+        findNavController().navigate(
+            BusinessListFragmentDirections.actionShowRestaurantDetail(business)
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,8 +63,9 @@ class BusinessListFragment : Fragment() {
         // Inflate the layout for this fragment using binding
         _binding = FragmentRestaurantListBinding.inflate(layoutInflater, container, false)
 
-        // Setup layout manager
+        // Setup layout manager and adapter
         binding.restaurantRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.restaurantRecyclerView.adapter = businessListAdapter
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -113,12 +120,7 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun showRestaurants(restaurants: List<Business>) {
-        // Update UI with restaurants
-        binding.restaurantRecyclerView.adapter = BusinessListAdapter(restaurants) {
-            findNavController().navigate(
-                BusinessListFragmentDirections.actionShowRestaurantDetail(it)
-            )
-        }
+        businessListAdapter.submitList(restaurants)
     }
 
     override fun onDestroy() {
