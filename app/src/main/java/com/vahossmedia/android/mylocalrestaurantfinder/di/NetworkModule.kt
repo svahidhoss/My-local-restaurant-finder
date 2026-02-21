@@ -1,7 +1,6 @@
 package com.vahossmedia.android.mylocalrestaurantfinder.di
 
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.vahossmedia.android.mylocalrestaurantfinder.api.RestaurantInterceptor
 import com.vahossmedia.android.mylocalrestaurantfinder.api.YelpFusionApi
 import dagger.Module
@@ -29,9 +28,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+        return Moshi.Builder().build()
     }
 
     @Provides
