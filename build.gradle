@@ -13,7 +13,3 @@ ext {
     moshiVersion = '1.15.2'
     hiltVersion = '2.57.2'
 }
-
-tasks.register('clean', Delete) {
-    delete rootProject.buildDir
-}
