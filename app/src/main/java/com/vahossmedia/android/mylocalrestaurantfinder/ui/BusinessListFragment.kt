@@ -128,6 +128,25 @@ class BusinessListFragment : Fragment() {
         _binding = null
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (isLocationEnabled()) getLastLocation()
+                else {
+                    showLocationDisabledDialog()
+                    businessListViewModel.fetchRestaurants()
+                }
+            } else {
+                businessListViewModel.fetchRestaurants()
+            }
+        }
+    }
+
     private fun checkLocationPermission(): Boolean {
         return ActivityCompat.checkSelfPermission(
             requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
@@ -135,8 +154,7 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun requestLocationPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
+        requestPermissions(
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_PERMISSION_REQUEST_CODE
         )
@@ -149,9 +167,11 @@ class BusinessListFragment : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                location?.let {
-                    Log.d(TAG, "Location received with ${it.latitude} and ${it.longitude}")
-                    businessListViewModel.setLocation(it.latitude, it.longitude)
+                if (location != null) {
+                    Log.d(TAG, "Location received with ${location.latitude} and ${location.longitude}")
+                    businessListViewModel.setLocation(location.latitude, location.longitude)
+                } else {
+                    businessListViewModel.fetchRestaurants()
                 }
             }
         }

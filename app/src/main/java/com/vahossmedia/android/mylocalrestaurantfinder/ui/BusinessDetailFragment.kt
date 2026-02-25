@@ -1,7 +1,6 @@
 package com.vahossmedia.android.mylocalrestaurantfinder.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +18,7 @@ import com.vahossmedia.android.mylocalrestaurantfinder.model.Business
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 /**
  * Represents Detail view of selected restaurant.
@@ -61,7 +61,7 @@ class BusinessDetailFragment : Fragment() {
 
     private fun openBusinessUrl() {
         businessDetailViewModel.businessState.value.url?.let {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+            val intent = Intent(Intent.ACTION_VIEW, it.toUri())
             startActivity(intent)
         } ?: run {
             // Handle case where URL is null
@@ -82,8 +82,8 @@ class BusinessDetailFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }
