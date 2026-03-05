@@ -36,47 +36,6 @@ class BusinessListViewModel @Inject constructor(
         }
     }
 
-    // TODO move to testing
-    /*private fun fetchMockRestaurants() {
-        val mockBusinessList = mutableListOf<Business>()
-        for (i in 1 until 50) {
-            val business = Business(
-                id = i.toString(),
-                alias = "lonsdale-quay-market",
-                name = "Lonsdale Quay Market $i",
-                imageUrl = "https://example.com/lonsdale-quay.jpg",
-                isClosed = false,
-                url = "https://lonsdalequay.com",
-                reviewCount = 800,
-                categories = listOf(Category("market"), Category("shopping")),
-                rating = 4.2,
-                coordinates = Coordinates(49.3098, -123.0827),
-                transactions = null,
-                price = "$$",
-                location = Location(
-                    "123 Carrie Cates Court",
-                    city = "North Vancouver",
-                    state = "BC",
-                    zipCode = "V7M 3K7",
-                    country = "Canada"
-                ),
-                phone = "+16049864483",
-                displayPhone = "(604) 986-4483",
-                distance = 0.5,
-                description = "Waterfront market with local vendors, restaurants, and shops."
-            )
-            mockBusinessList.add(business)
-        }
-
-        viewModelScope.launch {
-            updateBusinesses(mockBusinessList)
-        }
-    }
-
-    private suspend fun updateBusinesses(newItems: List<Business>) {
-        _businessList.emit(newItems)
-    }*/
-
     fun setLocation(latitude: Double, longitude: Double) {
         _location.value = Pair(latitude, longitude)
         viewModelScope.launch {
